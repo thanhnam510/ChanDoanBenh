@@ -79,25 +79,29 @@ public class ChanDoanServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
         HttpSession session = request.getSession();
-        String da="";
-        String mat="";
-        String bung="";
-        String camgiac="";
-        String cannang="";
         String benh="";
-        String url="";
         try {
+            String da,mat,bung,camgiac,cannang,ho,daudau,khotho;
             da = request.getParameter("Da");
             mat = request.getParameter("Mat");
             bung = request.getParameter("Bung");
             cannang = request.getParameter("CanNang");
             camgiac = request.getParameter("CamGiac");
-            benh = ChanDoanBenh.chanDoan(da, mat, bung, cannang, camgiac);
+            ho = request.getParameter("Ho");
+            daudau=request.getParameter("DauDau");
+            khotho = request.getParameter("KhoTho");
+            benh = ChanDoanBenh.chanDoanSoBo(da, mat, bung, cannang, camgiac,ho,daudau,khotho);
+            
         } catch (Exception ex) {
             Logger.getLogger(ChanDoanServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        request.setAttribute("benh", benh);
-        request.getRequestDispatcher("chandoan.jsp").forward(request, response);
+        PrintWriter out = response.getWriter();
+        response.setContentType("text/plain");
+	response.getWriter().write(benh);
+//        out.print("GRANTED");
+        out.close();
+//        request.setAttribute("benh", benh);
+//        request.getRequestDispatcher("chandoan.jsp").forward(request, response);
 
 
         

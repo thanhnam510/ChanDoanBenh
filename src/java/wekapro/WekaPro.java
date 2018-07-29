@@ -59,13 +59,6 @@ public class WekaPro {
         String CanNang = "BT";
         String CamGiac = "OChua";
         String Benh = "BT";
-        //
-        Instances dataRaw = program.createInstance(Da, Mat, Bung, CanNang, CamGiac, Benh);
-        //model.saveData("C:\\Users\\dien\\Desktop\\tt-tDuy\\Data\\iris1.arff", dataRaw);
-        //MyDecisionTreeModel model1 = new MyDecisionTreeModel("C:\\Users\\dien\\Desktop\\tt-tDuy\\Data\\iris1.arff","-C 0.25 -M 2");
-        // model.predictClassLabel(model.testset);
-        model.predictClassLabel(dataRaw);
-        System.out.println(System.getProperty("user.dir"));
     }
 
 }

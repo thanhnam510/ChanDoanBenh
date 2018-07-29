@@ -13,17 +13,22 @@ import weka.core.Instances;
 
 public class Program {
 
-    public Instances createInstance(String Da, String Mat, String Bung, String CanNang, String CamGiac, String Benh) {
-        ArrayList<Attribute> atts = new ArrayList<>(6);
-        ArrayList<String> classVal = new ArrayList<>(3);
-        ArrayList<String> DaAtt = new ArrayList<>(2);
-        ArrayList<String> MatAtt = new ArrayList<>(4);
-        ArrayList<String> BungAtt = new ArrayList<>(3);
+    public Instances createInstance(String Da, String Mat, String Bung, String CanNang, String CamGiac, String Ho, String DauDau, String KhoTho,
+            String Benh) {
+        ArrayList<Attribute> atts = new ArrayList<>(9);
+        ArrayList<String> classVal = new ArrayList<>(4);
+        ArrayList<String> DaAtt = new ArrayList<>(4);
+        ArrayList<String> MatAtt = new ArrayList<>(2);
+        ArrayList<String> BungAtt = new ArrayList<>(4);
         ArrayList<String> CangNangAtt = new ArrayList<>(3);
         ArrayList<String> CamGiacAtt = new ArrayList<>(3);
+        ArrayList<String> HoAtt = new ArrayList<>(5);
+        ArrayList<String> DauDauAtt = new ArrayList<>(4);
+        ArrayList<String> KhoThoAtt = new ArrayList<>(4);
         
         DaAtt.add("Vang");
-        DaAtt.add("NoiMun");
+        DaAtt.add("ManNgua");
+        DaAtt.add("SaoMach");
         DaAtt.add("BT");
         
         MatAtt.add("Vang");
@@ -42,8 +47,25 @@ public class Program {
         CamGiacAtt.add("OChua");
         CamGiacAtt.add("BT");
         
+        HoAtt.add("HoKhan");
+        HoAtt.add("HoTangDan");
+        HoAtt.add("HoCoDam");
+        HoAtt.add("HoRaMau");
+        HoAtt.add("BT");
+        
+        DauDauAtt.add("DauDau");
+        DauDauAtt.add("NhucDau");
+        DauDauAtt.add("DauDauLienTuc");
+        DauDauAtt.add("BT");
+        
+        KhoThoAtt.add("KhoTho");
+        KhoThoAtt.add("ThoGap");
+        KhoThoAtt.add("Thocham");
+        KhoThoAtt.add("BT");
+        
         classVal.add("Gan");
         classVal.add("BaoTu");
+        classVal.add("HoHap");
         classVal.add("BT");
         
         atts.add(new Attribute("Da", DaAtt));
@@ -51,6 +73,9 @@ public class Program {
         atts.add(new Attribute("Bung", BungAtt));
         atts.add(new Attribute("CanNang", CangNangAtt));
         atts.add(new Attribute("CamGiac", CamGiacAtt));
+        atts.add(new Attribute("Ho", HoAtt));
+        atts.add(new Attribute("DauDau", DauDauAtt));
+        atts.add(new Attribute("KhoTho", KhoThoAtt));
         atts.add(new Attribute("class", classVal));
 
         Instances dataRaw = new Instances("iris", atts, 0);
@@ -66,11 +91,14 @@ public class Program {
             case "Vang":
                 da = 0;
                 break;
-            case "NoiMun":
+            case "ManNgua":
                 da = 1;
                 break;
-            case "BT":
+            case "SaoMach":
                 da = 2;
+                break;
+            case "BT":
+                da = 3;
                 break;
             default:
                 break;
@@ -136,6 +164,66 @@ public class Program {
         }
         instanceValue[4] = camGiac;
         
+        int ho =0;
+        if (null != Ho) switch (Ho) {
+            case "HoKhan":
+                ho = 0;
+                break;
+            case "HoTangDan":
+                ho = 1;
+                break;
+            case "HoCoDam":
+                ho=2;
+                break;
+            case "HoRaMau":
+                ho = 3;
+                break;
+            case "BT":
+                ho = 4;
+                break;
+            default:
+                break;
+        }
+        instanceValue[5] = ho;
+        
+        int daudau =0;
+        if (null != DauDau) switch (DauDau) {
+            case "DauDau":
+                daudau = 0;
+                break;
+            case "NhucDau":
+                daudau = 1;
+                break;
+            case "DauDauLienTuc":
+                daudau=2;
+                break;
+            case "BT":
+                daudau = 3;
+                break;
+            default:
+                break;
+        }
+        instanceValue[6] = daudau;
+        
+        int khotho =0;
+        if (null != KhoTho) switch (KhoTho) {
+            case "KhoTho":
+                khotho = 0;
+                break;
+            case "ThoGap":
+                khotho = 1;
+                break;
+            case "Thocham":
+                khotho=2;
+                break;
+            case "BT":
+                khotho = 3;
+                break;
+            default:
+                break;
+        }
+        instanceValue[7] = khotho;
+
         int lop = 0;
         if (null != Benh) switch (Benh) {
             case "Gan":
@@ -144,13 +232,16 @@ public class Program {
             case "BaoTu":
                 lop = 1;
                 break;
+            case "HoHap":
+                lop=2;
+                break;
             case "BT":
-                lop = 2;
+                lop = 3;
                 break;
             default:
                 break;
         }
-        instanceValue[5] = lop;
+        instanceValue[8] = lop;
 
         dataRaw.add(new DenseInstance(1.0, instanceValue));
         dataRaw.setClassIndex(dataRaw.numAttributes() - 1);
@@ -158,16 +249,20 @@ public class Program {
         return dataRaw;
     }
 
-    public Instances createInstance(String Da, String Mat, String Bung, String CamGiac, String Benh) {
+    public Instances createInstance(String Da, String Mat, String Bung, String CamGiac,String AnUong,String Sot, String Benh) {
         ArrayList<Attribute> atts = new ArrayList<>();
         ArrayList<String> classVal = new ArrayList<>();
         ArrayList<String> DaAtt = new ArrayList<>();
         ArrayList<String> MatAtt = new ArrayList<>();
         ArrayList<String> BungAtt = new ArrayList<>();
         ArrayList<String> CamGiacAtt = new ArrayList<>();
+        ArrayList<String> AnUongAtt = new ArrayList<>();
+        ArrayList<String> SotAtt = new ArrayList<>();
         
         DaAtt.add("Vang");
-        DaAtt.add("NoiMun");
+        DaAtt.add("ManNgua");
+        DaAtt.add("SaoMach");
+        DaAtt.add("BT");
         
         MatAtt.add("Vang");
         MatAtt.add("BT");
@@ -175,9 +270,19 @@ public class Program {
         BungAtt.add("Chuong");
         BungAtt.add("Dau");
         BungAtt.add("KhoTieu");
+        BungAtt.add("BT");
         
         CamGiacAtt.add("BuonNon");
         CamGiacAtt.add("OChua");
+        CamGiacAtt.add("BT");
+        
+        AnUongAtt.add("ChanAn");
+        AnUongAtt.add("KhongNgonMieng");
+        AnUongAtt.add("BT");
+        
+        SotAtt.add("SotNhe");
+        SotAtt.add("SotCao");
+        SotAtt.add("BT");
         
         classVal.add("XoGan");
         classVal.add("MenGanCao");
@@ -187,6 +292,8 @@ public class Program {
         atts.add(new Attribute("Mat", MatAtt));
         atts.add(new Attribute("Bung", BungAtt));
         atts.add(new Attribute("CamGiac", CamGiacAtt));
+        atts.add(new Attribute("AnUong", AnUongAtt));
+        atts.add(new Attribute("Sot", SotAtt));
         atts.add(new Attribute("class", classVal));
 
         Instances dataRaw = new Instances("iris", atts, 0);
@@ -201,8 +308,14 @@ public class Program {
             case "Vang":
                 da = 0;
                 break;
-            case "NoiMun":
+            case "ManNgua":
                 da = 1;
+                break;
+            case "SaoMach":
+                da = 2;
+                break;
+            case "BT":
+                da = 3;
                 break;
             default:
                 break;
@@ -228,24 +341,62 @@ public class Program {
             case "KhoTieu":
                 bung = 2;
                 break;
+            case "BT":
+                bung = 3;
+                break;
             default:
                 break;
         }
         instanceValue[2] = bung;
         
         //CamGiac
-        int camGiac = 0;
-        if (null != CamGiac) switch (CamGiac) {
+        int camgiac = 0;
+         if (null != CamGiac) switch (CamGiac) {
             case "BuonNon":
-                camGiac = 0;
+                camgiac = 0;
                 break;
             case "OChua":
-                camGiac = 1;
+                camgiac = 1;
+                break;
+            case "BT":
+                camgiac = 2;
                 break;
             default:
                 break;
         }
-        instanceValue[3] = camGiac;
+        instanceValue[3] = camgiac;
+        
+        int anuong = 0;
+        if (null != CamGiac) switch (CamGiac) {
+            case "ChanAn":
+                anuong = 0;
+                break;
+            case "KhongNgonMieng":
+                anuong = 1;
+                break;
+            case "BT":
+                anuong = 2;
+                break;
+            default:
+                break;
+        }
+        instanceValue[4] = anuong;
+        
+        int sot = 0;
+        if (null != Sot) switch (Sot) {
+            case "SotNhe":
+                sot = 0;
+                break;
+            case "SotCao":
+                sot = 1;
+                break;
+            case "BT":
+                sot = 2;
+                break;
+            default:
+                break;
+        }
+        instanceValue[5] = anuong;
         
         int lop = 0;
         if (null != Benh) switch (Benh) {
@@ -261,7 +412,7 @@ public class Program {
             default:
                 break;
         }
-        instanceValue[4] = lop;
+        instanceValue[6] = lop;
 
         dataRaw.add(new DenseInstance(1.0, instanceValue));
         dataRaw.setClassIndex(dataRaw.numAttributes() - 1);

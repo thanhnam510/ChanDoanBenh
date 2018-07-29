@@ -3,8 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Nam/Documents/NetBeansProjects/ChanDoan/web/META-INF/context.xml</file>
-            <file>file:/C:/Users/Nam/Documents/NetBeansProjects/ChanDoan/web/chuandoan.jsp</file>
+            <file>file:/C:/Users/Nam/Documents/NetBeansProjects/ChanDoanBenh-master/src/java/wekapro/MyDecisionTreeModel.java</file>
+            <file>file:/C:/Users/Nam/Documents/NetBeansProjects/ChanDoanBenh-master/src/java/Controller/ChanDoanGanServlet.java</file>
+            <file>file:/C:/Users/Nam/Documents/NetBeansProjects/ChanDoanBenh-master/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/Nam/Documents/NetBeansProjects/ChanDoanBenh-master/src/java/Controller/ChanDoanServlet.java</file>
+            <file>file:/C:/Users/Nam/Documents/NetBeansProjects/ChanDoanBenh-master/web/chandoan.jsp</file>
+            <file>file:/C:/Users/Nam/Documents/NetBeansProjects/ChanDoanBenh-master/src/java/wekapro/Program.java</file>
+            <file>file:/C:/Users/Nam/Documents/NetBeansProjects/ChanDoanBenh-master/src/java/Model/ChanDoanBenh.java</file>
         </group>
     </open-files>
 </project-private>

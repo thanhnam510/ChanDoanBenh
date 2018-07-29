@@ -22,12 +22,13 @@ public class ChanDoanBenh {
     private static MyDecisionTreeModel model; 
     private static MyDecisionTreeModel ganModel; 
     private static MyDecisionTreeModel tieuhoaModel;
-    private static String dataPath="C:\\Users\\Nam\\Documents\\NetBeansProjects\\ChanDoan\\data";
+    private static MyDecisionTreeModel hohapModel;
+    private static String dataPath="C:\\Users\\Nam\\Documents\\NetBeansProjects\\ChanDoanBenh-master\\data";
     public ChanDoanBenh() {
     }
     
-    public static String chanDoan(String da,String mat, String bung,String cannang,String camgiac) throws Exception{
-        if(model==null)
+    public static void init(){
+         if(model==null)
             try {
                 model = new MyDecisionTreeModel();
                 ganModel = new MyDecisionTreeModel();
@@ -43,51 +44,60 @@ public class ChanDoanBenh {
                 System.out.println(exl);
             }
         }
+    }
+    
+    public static String chanDoanSoBo(String da,String mat, String bung,String cannang,String camgiac,
+            String ho,String daudau,String khotho) throws Exception{
+        init();
         String ketqua;
         String sobo ="";
         try{
-        sobo = model.predict(createRaw(da,mat,bung,cannang,camgiac));
+        sobo = model.predict(createRaw(da, mat, bung, cannang, camgiac, ho, daudau, khotho));
         }
         catch (Exception ex){
             System.out.println(ex.toString());
             return null;
         }
-        switch (sobo) {
-            case "Gan":
-                Instances ganRaw = createRaw(da, mat, bung, camgiac);
-                ketqua = ganModel.predict(ganRaw);
-                break;
-            case "BaoTu":
-                Instances tieuhoaRaw = createRaw(bung, camgiac);
-                ketqua = tieuhoaModel.predict(tieuhoaRaw);
-                break;
-            default:
-                ketqua = "Bình thường";
-                break;
-        }
-        return ketqua;
+        return sobo;
        
     }
+    public static String chanDoan(String da,String mat, String bung,String camgiac,
+            String anuong,String sot) throws Exception{
+                init();
+                String ketqua ="";
+        try{
+        ketqua = model.predict(createRaw(da, mat, bung, camgiac, anuong, sot));
+        }
+        catch (Exception ex){
+            System.out.println(ex.toString());
+            return null;
+        }
+        return ketqua;
+            }
     
-     private static Instances createRaw(String Da, String Mat, String Bung, String CanNang, String CamGiac) {
+    // tạo dữ liệu tổng quát
+     private static Instances createRaw(String da,String mat, String bung,String cannang,String camgiac,
+        String ho,String daudau,String khotho) {
         Program program = new Program();
         String Benh = "BT";
-        return program.createInstance(Da, Mat, Bung, CanNang, CamGiac, Benh);
+        return program.createInstance(da, mat, bung, cannang, camgiac,ho,daudau,khotho,Benh);
     }
-    
-    private static Instances createRaw(String Da, String Mat, String Bung, String CamGiac) {
+    // tạo dữ liệu gan
+    private static Instances createRaw(String Da, String Mat, String Bung, String CamGiac,String AnUong,String Sot) {
         Program program = new Program();
         String Benh = "BT";
-        return program.createInstance(Da, Mat, Bung, CamGiac, Benh);
+        return program.createInstance(Da, Mat, Bung, CamGiac, AnUong, Sot, Benh);
     }
-    
+    // tạo dữ liệu ... hô hấp || tiêu hóa
     private static Instances createRaw(String Bung, String CamGiac) {
         Program program = new Program();
         String Benh = "BT";
         return program.createInstance(Bung, CamGiac, Benh);
     }
+    // tạo dữ liệu còn lại
+    
     private static void firstBuild() throws Exception {
-        model = new MyDecisionTreeModel(dataPath +"\\D13IS.arff", "-C 0.25 -M 2");
+        model = new MyDecisionTreeModel(dataPath +"\\TongQuat.arff", "-C 0.25 -M 2");
         model.buildDecisionTree();
         System.out.println("Thông số cây:\n---------------------------------------------");
         System.out.println(model);
@@ -118,7 +128,7 @@ public class ChanDoanBenh {
         System.out.println("---------------------------------------------");
     }
     public static void main(String[] args) throws Exception {
-        String benh = ChanDoanBenh.chanDoan("NoiMun","Vang","KhoTieu","Cao","BT");
+        String benh = ChanDoanBenh.chanDoanSoBo("NoiMun","Vang","KhoTieu","Cao","BT","BT","BT","BT");
         System.out.println(benh);
     }
 }
